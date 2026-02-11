@@ -1,7 +1,13 @@
-.burger_constructor {
+.total_summary {
   display: flex;
-  flex-direction: column;
-  width: 600px;
-  padding-bottom: 20px;
-  color: var(--text-primary-color);
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.close {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  cursor: pointer;
 }
