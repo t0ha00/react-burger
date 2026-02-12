@@ -1,0 +1,17 @@
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.drag_icon {
+  width: 32px;
+}
+
+.constructor_element {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-right: 32px;
+  padding-left: 24px;
+}

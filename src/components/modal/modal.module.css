@@ -1,0 +1,20 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1001;
+  align-items: center;
+  width: auto;
+  color: white;
+  text-align: center;
+  background: #1c1c2b;
+  border-radius: 40px;
+  transform: translate(-50%, -50%);
+}
+
+.modal_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

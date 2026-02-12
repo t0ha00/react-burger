@@ -1,0 +1,13 @@
+.list {
+  display: grid;
+  flex: 1;
+  gap: 16px;
+  padding-left: 32px;
+  overflow-y: auto;
+}
+
+.list_container {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 320px);
+}
