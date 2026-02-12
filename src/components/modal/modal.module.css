@@ -11,3 +11,10 @@
   border-radius: 40px;
   transform: translate(-50%, -50%);
 }
+
+.modal_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

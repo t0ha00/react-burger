@@ -1,8 +1,4 @@
-import {
-  CurrencyIcon,
-  Button,
-  CloseIcon,
-} from '@krgaa/react-developer-burger-ui-components';
+import { CurrencyIcon, Button } from '@krgaa/react-developer-burger-ui-components';
 import { useState } from 'react';
 import { BurgerConstructorList } from 'src/components/burger-constructor/burger-constructor-list/burger-constructor-list.jsx';
 
@@ -40,15 +36,8 @@ export const BurgerConstructor = ({ ingredients }) => {
       </div>
 
       {modalOpen && (
-        <Modal onClose={handleCloseModal}>
-          <div className="p-30">
-            <CloseIcon
-              type="primary"
-              onClick={handleCloseModal}
-              className={styles.close}
-            />
-            <OrderDetails />
-          </div>
+        <Modal close={handleCloseModal}>
+          <OrderDetails />
         </Modal>
       )}
     </div>

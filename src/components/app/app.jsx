@@ -2,6 +2,7 @@ import { Preloader } from '@krgaa/react-developer-burger-ui-components';
 import { useState, useEffect } from 'react';
 
 import { API_URL } from '@/utils/constans';
+import { request } from '@/utils/request';
 import { AppHeader } from '@components/app-header/app-header';
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
@@ -12,8 +13,7 @@ export const App = () => {
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
-    fetch(API_URL)
-      .then((response) => response.json())
+    request(API_URL)
       .then((data) => setIngredients(data.data))
       .catch((error) => console.log('Ошибка получения ингридиетов:', error));
   }, []);

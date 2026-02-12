@@ -1,8 +1,4 @@
-import {
-  Counter,
-  CurrencyIcon,
-  CloseIcon,
-} from '@krgaa/react-developer-burger-ui-components';
+import { Counter, CurrencyIcon } from '@krgaa/react-developer-burger-ui-components';
 import { useState } from 'react';
 
 import { IngredientDetails } from '../../ingredient-details/ingredient-details.jsx';
@@ -41,14 +37,8 @@ export const BurgerIngredientsCard = ({ ingredient }) => {
         <p className={'text text_type_main-default mt-1'}>{ingredient.name}</p>
       </li>
       {modalOpen && (
-        <Modal close={handleCloseModal}>
-          <div className="pl-10 pr-10 pt-10 pb-15">
-            <div className={styles.modal_header}>
-              <h3 className="text text_type_main-large">Детали ингредиента</h3>
-              <CloseIcon type="primary" onClick={handleCloseModal} />
-            </div>
-            <IngredientDetails ingredient={ingredient} />
-          </div>
+        <Modal header={'Детали ингридиента'} close={handleCloseModal}>
+          <IngredientDetails ingredient={ingredient} />
         </Modal>
       )}
     </>
