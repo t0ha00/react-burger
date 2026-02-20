@@ -1,36 +1,45 @@
 import { CurrencyIcon, Button } from '@krgaa/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BurgerConstructorList } from 'src/components/burger-constructor/burger-constructor-list/burger-constructor-list.jsx';
+
+import { clearConstructor, selectTotalPrice } from '@/services/burger-constructor.js';
+import { createOrder, clearOrder } from '@/services/order.js';
 
 import Modal from '../modal/modal.jsx';
 import { OrderDetails } from '../order-datails/order-datails.jsx';
 
 import styles from './burger-constructor.module.css';
 
-export const BurgerConstructor = ({ ingredients }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+export const BurgerConstructor = () => {
+  const dispatch = useDispatch();
+  const { bun, ingredients } = useSelector((state) => state.burgerConstructor);
+  const { orderNumber } = useSelector((state) => state.order);
+  const totalPrice = useSelector(selectTotalPrice);
 
-  function handleOpenModal() {
-    setModalOpen(true);
-  }
+  const modalOpen = orderNumber !== null;
 
-  function handleCloseModal() {
-    setModalOpen(false);
-  }
+  const handleOpenModal = async () => {
+    try {
+      await dispatch(createOrder()).unwrap();
+    } catch (error) {
+      alert(`Ошибка оформления заказа: ${error}`);
+    }
+  };
+
+  const handleCloseModal = () => {
+    dispatch(clearOrder());
+    dispatch(clearConstructor());
+  };
+
   return (
     <div>
-      <BurgerConstructorList ingredients={ingredients} />
+      <BurgerConstructorList bun={bun} ingredients={ingredients} />
       <div className={`${styles.total_summary}`}>
         <div className="pr-10">
-          <span className="text text_type_digits-medium">123</span>
+          <span className="text text_type_digits-medium">{totalPrice}</span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button
-          htmlType="button"
-          type="primary"
-          size="large"
-          onClick={() => handleOpenModal()}
-        >
+        <Button htmlType="button" type="primary" size="large" onClick={handleOpenModal}>
           Оформить заказ
         </Button>
       </div>
