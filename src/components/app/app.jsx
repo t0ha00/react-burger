@@ -1,21 +1,20 @@
 import { Preloader } from '@krgaa/react-developer-burger-ui-components';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { API_URL } from '@/utils/constans';
-import { request } from '@/utils/request';
 import { AppHeader } from '@components/app-header/app-header';
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
+import { fetchIngredients } from '@services/ingredients';
 
 import styles from './app.module.css';
 
 export const App = () => {
-  const [ingredients, setIngredients] = useState([]);
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.ingredients);
 
   useEffect(() => {
-    request(API_URL)
-      .then((data) => setIngredients(data.data))
-      .catch((error) => console.log('Ошибка получения ингридиетов:', error));
+    dispatch(fetchIngredients());
   }, []);
 
   return (
@@ -24,10 +23,10 @@ export const App = () => {
       <h1 className={`${styles.title} text text_type_main-large mt-10 mb-5 pl-5`}>
         Соберите бургер
       </h1>
-      {ingredients.length > 0 ? (
+      {!isLoading ? (
         <main className={`${styles.main} pl-5 pr-5`}>
-          <BurgerIngredients ingredients={ingredients} />
-          <BurgerConstructor ingredients={ingredients} />
+          <BurgerIngredients />
+          <BurgerConstructor />
         </main>
       ) : (
         <Preloader />

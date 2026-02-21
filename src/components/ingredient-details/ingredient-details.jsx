@@ -1,29 +1,38 @@
+import { useSelector } from 'react-redux';
+
 import styles from './ingredient-details.module.css';
 
-export const IngredientDetails = ({ ingredient }) => {
+export const IngredientDetails = () => {
+  const selectedIngredient = useSelector(
+    (state) => state.selectedIngredients.selectedIngredient
+  );
   return (
     <>
-      <img className="pb-4" src={ingredient.image_large} alt={ingredient.name} />
-      <p className={'text text_type_main-medium pb-8'}>{ingredient.name}</p>
+      <img
+        className="pb-4"
+        src={selectedIngredient.image_large}
+        alt={selectedIngredient.name}
+      />
+      <p className={'text text_type_main-medium pb-8'}>{selectedIngredient.name}</p>
       <div className={styles.modal_nutrition}>
         <div>
           <div className="text text_type_main-default text_color_inactive">
             Калории, ккал
           </div>
           <div className="text text_type_main-default text_color_inactive">
-            {ingredient.calories}
+            {selectedIngredient.calories}
           </div>
         </div>
         <div>
           <div className="text text_type_main-default text_color_inactive">Белки, г</div>
           <div className="text text_type_main-default text_color_inactive">
-            {ingredient.proteins}
+            {selectedIngredient.proteins}
           </div>
         </div>
         <div>
           <div className="text text_type_main-default text_color_inactive">Жиры, г</div>
           <div className="text text_type_main-default text_color_inactive">
-            {ingredient.fat}
+            {selectedIngredient.fat}
           </div>
         </div>
         <div>
@@ -31,7 +40,7 @@ export const IngredientDetails = ({ ingredient }) => {
             Углеводы, г
           </div>
           <div className="text text_type_main-default text_color_inactive">
-            {ingredient.carbohydrates}
+            {selectedIngredient.carbohydrates}
           </div>
         </div>
       </div>

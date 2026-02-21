@@ -11,3 +11,40 @@
   flex-direction: column;
   max-height: calc(100vh - 320px);
 }
+
+.constructor_placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 450px;
+  min-height: 40px;
+  margin: 10px auto;
+  padding: 16px;
+  overflow: hidden;
+  text-align: center;
+  background: var(--background-element);
+  border: 2px solid #8585ad;
+  transition: all 0.3s ease;
+}
+
+.constructor_placeholder:hover {
+  border-color: #4c4cff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+}
+
+.constructor_placeholder_top {
+  border-radius: 60px 60px 20px 20px;
+}
+
+.constructor_placeholder_bottom {
+  border-radius: 20px 20px 60px 60px;
+}
+
+.constructor_placeholder_middle {
+  border-radius: 60px;
+}
+
+.drop_zone_hover {
+  transition: all 0.2s ease;
+}
