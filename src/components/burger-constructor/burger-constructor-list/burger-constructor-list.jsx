@@ -1,12 +1,12 @@
 import { BurgerConstructorCard } from '../burger-constructor-card/burger-constructor-card';
-import { BunDropZone, IngredientsDropZone } from './drop-zones';
+import { IngredientsDropZone } from './drop-zones';
 
 import styles from './burger-constructor-list.module.css';
 
 export const BurgerConstructorList = ({ bun, ingredients }) => {
   return (
     <div className={`${styles.list_container}`}>
-      <BunDropZone type="top">
+      <IngredientsDropZone type="top">
         {bun ? (
           <BurgerConstructorCard ingredient={bun} top={true} />
         ) : (
@@ -18,7 +18,7 @@ export const BurgerConstructorList = ({ bun, ingredients }) => {
             </span>
           </div>
         )}
-      </BunDropZone>
+      </IngredientsDropZone>
 
       <IngredientsDropZone>
         <ul className={`${styles.list}`}>
@@ -42,7 +42,7 @@ export const BurgerConstructorList = ({ bun, ingredients }) => {
         </ul>
       </IngredientsDropZone>
 
-      <BunDropZone type="top">
+      <IngredientsDropZone type="bottom">
         {bun ? (
           <BurgerConstructorCard ingredient={bun} bottom={true} />
         ) : (
@@ -54,7 +54,7 @@ export const BurgerConstructorList = ({ bun, ingredients }) => {
             </span>
           </div>
         )}
-      </BunDropZone>
+      </IngredientsDropZone>
     </div>
   );
 };

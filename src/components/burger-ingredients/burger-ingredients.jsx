@@ -5,7 +5,7 @@ import { BurgerIngredientsList } from './burger-ingredients-list/burger-ingredie
 
 import styles from './burger-ingredients.module.css';
 
-export const BurgerIngredients = ({ ingredients }) => {
+export const BurgerIngredients = () => {
   const [currentTab, setCurrentTab] = useState('bun');
 
   const bunsRef = useRef(null);
@@ -101,7 +101,6 @@ export const BurgerIngredients = ({ ingredients }) => {
         </ul>
       </nav>
       <BurgerIngredientsList
-        ingredients={ingredients}
         bunsRef={bunsRef}
         mainsRef={mainsRef}
         saucesRef={saucesRef}

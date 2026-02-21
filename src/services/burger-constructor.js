@@ -10,14 +10,15 @@ const burgerConstructorSlice = createSlice({
   initialState,
   reducers: {
     addIngredient: (state, action) => {
-      const ingredient = {
-        ...action.payload,
-        uniqueId: nanoid(),
+      const { ingredient, uniqueId } = action.payload;
+      const ingredientWithId = {
+        ...ingredient,
+        uniqueId,
       };
       if (ingredient.type === 'bun') {
-        state.bun = ingredient;
+        state.bun = ingredientWithId;
       } else {
-        state.ingredients.push(ingredient);
+        state.ingredients.push(ingredientWithId);
       }
     },
     removeIngredient: (state, action) => {
@@ -39,6 +40,13 @@ const burgerConstructorSlice = createSlice({
 
 export const { addIngredient, removeIngredient, clearConstructor, moveIngredient } =
   burgerConstructorSlice.actions;
+
+export const addIngredientWithId = (ingredient) => {
+  return (dispatch) => {
+    const uniqueId = nanoid();
+    dispatch(addIngredient({ ingredient, uniqueId }));
+  };
+};
 
 export const selectOrderIngredients = (state) => {
   const { bun, ingredients } = state.burgerConstructor;

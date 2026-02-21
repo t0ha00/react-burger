@@ -20,3 +20,7 @@
   cursor: grabbing;
   opacity: 0.5;
 }
+
+.card_hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 50%);
+}

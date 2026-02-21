@@ -1,40 +1,26 @@
 import { useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 
-import { addIngredient } from '@/services/burger-constructor.js';
+import { addIngredientWithId } from '@/services/burger-constructor.js';
 
-export const BunDropZone = ({ children }) => {
-  const dispatch = useDispatch();
-
-  const [dropRef] = useDrop({
-    accept: 'ingredient',
-    drop: (item) => {
-      if (item.type === 'bun') {
-        dispatch(addIngredient(item));
-      }
-    },
-    collect: (monitor) => ({
-      isHover: monitor.isOver(),
-    }),
-  });
-
-  return <div ref={dropRef}>{children}</div>;
-};
+import styles from './burger-constructor-list.module.css';
 
 export const IngredientsDropZone = ({ children }) => {
   const dispatch = useDispatch();
 
-  const [dropRef] = useDrop({
+  const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
     drop: (item) => {
-      if (item.type !== 'bun') {
-        dispatch(addIngredient(item));
-      }
+      dispatch(addIngredientWithId(item));
     },
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
   });
 
-  return <div ref={dropRef}>{children}</div>;
+  return (
+    <div ref={dropRef} className={isHover ? styles.drop_zone_hover : ''}>
+      {children}
+    </div>
+  );
 };

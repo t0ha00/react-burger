@@ -11,7 +11,7 @@ import styles from './app.module.css';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { ingredients, isLoading } = useSelector((state) => state.ingredients);
+  const { isLoading } = useSelector((state) => state.ingredients);
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -25,8 +25,8 @@ export const App = () => {
       </h1>
       {!isLoading ? (
         <main className={`${styles.main} pl-5 pr-5`}>
-          <BurgerIngredients ingredients={ingredients} />
-          <BurgerConstructor ingredients={ingredients} />
+          <BurgerIngredients />
+          <BurgerConstructor />
         </main>
       ) : (
         <Preloader />

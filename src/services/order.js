@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ORDER_URL } from '@/utils/constans';
+import { BASE_URL } from '@/utils/constans';
 import { request } from '@/utils/request';
 
 import { selectOrderIngredients } from './burger-constructor.js';
@@ -16,7 +16,7 @@ export const createOrder = createAsyncThunk(
         return rejectWithValue('Нет ингредиентов для заказа');
       }
 
-      const response = await request(ORDER_URL, {
+      const response = await request(`${BASE_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

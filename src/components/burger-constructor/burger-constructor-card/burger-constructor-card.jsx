@@ -31,7 +31,7 @@ export const BurgerConstructorCard = ({ ingredient, top, bottom, index }) => {
     }),
   });
 
-  const [dropRef] = useDrop({
+  const [{ isHover }, dropRef] = useDrop({
     accept: 'constructor-ingredient',
     hover(item, monitor) {
       if (!ref.current) {
@@ -77,7 +77,7 @@ export const BurgerConstructorCard = ({ ingredient, top, bottom, index }) => {
   return (
     <li
       key={ingredient.uniqueId}
-      className={`${styles.card} ${top || bottom ? 'ml-8' : ''} ${isDrag ? styles.card_dragging : ''}`}
+      className={`${styles.card} ${top || bottom ? 'ml-8' : ''} ${isDrag ? styles.card_dragging : ''} ${isHover ? styles.card_hover : ''}`}
       ref={combinedRef}
     >
       {!(top || bottom) && <DragIcon type="primary" className={`${styles.drag_icon}`} />}

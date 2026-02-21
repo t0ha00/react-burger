@@ -1,14 +1,16 @@
+import { useSelector } from 'react-redux';
+
 import { BurgerIngredientsCard } from '../burger-ingredients-card/burger-ingredients-card';
 
 import styles from './burger-ingredients-list.module.css';
 
 export const BurgerIngredientsList = ({
-  ingredients,
   bunsRef,
   mainsRef,
   saucesRef,
   containerRef,
 }) => {
+  const { ingredients } = useSelector((state) => state.ingredients);
   const buns = ingredients.filter((item) => item.type === 'bun');
   const mains = ingredients.filter((item) => item.type === 'main');
   const sauces = ingredients.filter((item) => item.type === 'sauce');

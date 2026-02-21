@@ -44,3 +44,7 @@
 .constructor_placeholder_middle {
   border-radius: 60px;
 }
+
+.drop_zone_hover {
+  transition: all 0.2s ease;
+}
