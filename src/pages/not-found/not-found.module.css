@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.content {
+  max-width: 400px;
+  text-align: center;
+}
+
+.link {
+  color: #4371cc;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #3456a3;
+  text-decoration: underline;
+}

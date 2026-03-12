@@ -1,6 +1,7 @@
 import { Counter, CurrencyIcon } from '@krgaa/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { selectIngredientCounts } from '@/services/burger-constructor.js';
 import {
@@ -15,6 +16,7 @@ import styles from './burger-ingredients-card.module.css';
 
 export const BurgerIngredientsCard = ({ ingredient }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const selectedIngredient = useSelector(
     (state) => state.selectedIngredients.selectedIngredient
   );
@@ -32,10 +34,12 @@ export const BurgerIngredientsCard = ({ ingredient }) => {
 
   function handleOpenModal() {
     dispatch(setSelectedIngredient(ingredient));
+    navigate(`/ingredients/${ingredient._id}`);
   }
 
   function handleCloseModal() {
     dispatch(clearSelectedIngredient());
+    navigate('/');
   }
 
   const ingredientCount = ingredientCounts[ingredient._id] || 0;
@@ -60,8 +64,8 @@ export const BurgerIngredientsCard = ({ ingredient }) => {
         <p className={'text text_type_main-default mt-1'}>{ingredient.name}</p>
       </li>
       {modalOpen && (
-        <Modal header={'Детали ингридиента'} close={handleCloseModal}>
-          <IngredientDetails />
+        <Modal header={'Детали ингредиента'} close={handleCloseModal}>
+          <IngredientDetails ingredient={selectedIngredient} />
         </Modal>
       )}
     </>

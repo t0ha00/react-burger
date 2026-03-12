@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.message {
+  text-align: center;
+}
+
+.message h1 {
+  margin-bottom: 20px;
+}
+
+.message p {
+  margin-bottom: 12px;
+}

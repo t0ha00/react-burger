@@ -1,36 +1,46 @@
-import { Preloader } from '@krgaa/react-developer-burger-ui-components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 import { AppHeader } from '@components/app-header/app-header';
-import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
-import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
-import { fetchIngredients } from '@services/ingredients';
+import { checkAuth, selectIsAuthenticated, selectAuthLoading } from '@services/auth';
 
 import styles from './app.module.css';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.ingredients);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isLoading = useSelector(selectAuthLoading);
 
+  // Проверяем авторизацию при монтировании App
   useEffect(() => {
-    dispatch(fetchIngredients());
-  }, []);
+    // Если есть токен в localStorage, но пользователь не авторизован в Redux,
+    // проверяем валидность токена
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken && !isAuthenticated && !isLoading) {
+      dispatch(checkAuth());
+    }
+  }, [dispatch, isAuthenticated, isLoading]);
+
+  // Показываем загрузку во время проверки авторизации
+  if (isLoading && !isAuthenticated) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <p className="text text_type_main-large">Загрузка...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <h1 className={`${styles.title} text text_type_main-large mt-10 mb-5 pl-5`}>
-        Соберите бургер
-      </h1>
-      {!isLoading ? (
-        <main className={`${styles.main} pl-5 pr-5`}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </main>
-      ) : (
-        <Preloader />
-      )}
+      <Outlet />
     </div>
   );
 };

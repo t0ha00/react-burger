@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.linkContainer {
+  margin-top: 30px;
+}
+
+.link {
+  color: #4371cc;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #3456a3;
+  text-decoration: underline;
+}
+
+.errorText {
+  margin: -10px 0;
+  color: #ff6347;
+  font-size: 14px;
+}

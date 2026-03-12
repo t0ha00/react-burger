@@ -42,4 +42,7 @@ const ingredientsSlice = createSlice({
   },
 });
 
+export const selectIngredientById = (state, id) =>
+  state.ingredients.ingredients.find((ingredient) => ingredient._id === id);
+
 export default ingredientsSlice.reducer;
