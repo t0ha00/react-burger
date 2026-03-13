@@ -14,7 +14,12 @@
 }
 
 .menuItem {
+  margin-bottom: 24px;
   padding-right: 24px;
+  font-weight: 700;
+  font-size: 36px;
+  font-family: 'Jet Brains Mono', sans-serif;
+  line-height: 1.1;
   text-decoration: none;
   cursor: pointer;
 }

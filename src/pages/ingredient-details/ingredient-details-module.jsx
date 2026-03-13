@@ -10,7 +10,9 @@ import {
   clearSelectedIngredient,
 } from '@services/selected-ingredient';
 
-export const IngredientDetailsPage = () => {
+import styles from './ingredient-details-module.module.css';
+
+export const IngredientDetailsModule = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -32,9 +34,9 @@ export const IngredientDetailsPage = () => {
 
   if (!selectedIngredient) {
     return (
-      <div style={{ padding: '40px', textAlign: 'center' }}>
+      <div className={styles.notFound}>
         <p>Ингредиент не найден</p>
-        <button onClick={handleCloseModal} style={{ marginTop: '20px' }}>
+        <button onClick={handleCloseModal} className={styles.notFoundButton}>
           Вернуться на главную
         </button>
       </div>

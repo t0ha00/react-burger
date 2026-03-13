@@ -85,7 +85,7 @@ export const BurgerConstructorCard = ({ ingredient, top, bottom, index }) => {
         extraClass={`${styles.constructor_element} ${ingredient.type === 'bun' ? 'ml-8' : ''}`}
         type={top ? 'top' : bottom ? 'bottom' : ''}
         isLocked={ingredient.type === 'bun' ? true : false}
-        text={ingredient.name}
+        text={`${ingredient.name}${top ? ' (верх)' : bottom ? ' (низ)' : ''}`}
         thumbnail={ingredient.image}
         price={ingredient.price}
         handleClose={ingredient.type !== 'bun' ? handleClose : undefined}

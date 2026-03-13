@@ -1,1 +1,1 @@
-export { IngredientDetailsPage } from './ingredient-details-page';
+export { IngredientDetailsModule } from './ingredient-details-module';

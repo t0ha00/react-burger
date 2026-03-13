@@ -118,85 +118,87 @@ export const ProfilePage = () => {
       <div className={styles.menu}>
         <NavLink
           to="/profile"
-          className={`text text_type_main-large mb-10 ${styles.menuItem} ${!isProfilePage ? 'text_color_inactive' : styles.active}`}
+          className={({ isActive }) =>
+            `${styles.menuItem} ${isActive ? styles.active : 'text_color_inactive'}`
+          }
+          end
         >
           Профиль
         </NavLink>
         <NavLink
           to="/profile/orders"
-          className={`text text_type_main-large mb-10 ${styles.menuItem} ${isProfilePage ? 'text_color_inactive' : styles.active}`}
+          className={({ isActive }) =>
+            `${styles.menuItem} ${isActive ? styles.active : 'text_color_inactive'}`
+          }
         >
           История заказов
         </NavLink>
         <NavLink
           onClick={handleLogout}
-          className={`text text_type_main-large text_color_inactive ${styles.menuItem}`}
+          className={`text_color_inactive ${styles.menuItem}`}
         >
           Выход
         </NavLink>
-        <div
-          className={`text text_type_main-default text_color_inactive mt-15 ${styles.menuItem}`}
-        >
+        <div className={`text text_type_main-default text_color_inactive mt-15`}>
           В этом разделе вы можете<br></br>изменить свои персональные данные
         </div>
       </div>
 
-      <div>
-        {isProfilePage ? (
-          <>
-            <form className={styles.form}>
-              <Input
-                name="name"
-                type="text"
-                placeholder="Имя"
-                value={formData.name}
-                icon="EditIcon"
-                onChange={handleChange}
-              />
+      {isProfilePage ? (
+        <>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <Input
+              name="name"
+              type="text"
+              placeholder="Имя"
+              value={formData.name}
+              icon="EditIcon"
+              onChange={handleChange}
+            />
 
-              <Input
-                name="login"
-                type="text"
-                placeholder="Логин"
-                value={formData.login}
-                icon="EditIcon"
-                onChange={handleChange}
-              />
+            <Input
+              name="login"
+              type="text"
+              placeholder="Логин"
+              value={formData.login}
+              icon="EditIcon"
+              onChange={handleChange}
+            />
 
-              <PasswordInput
-                name="password"
-                placeholder="Пароль"
-                value={formData.password}
-                icon="EditIcon"
-                onChange={handleChange}
-              />
+            <PasswordInput
+              name="password"
+              placeholder="Пароль"
+              value={formData.password}
+              icon="EditIcon"
+              onChange={handleChange}
+            />
 
-              {isEditing && (
-                <div className={styles.buttons}>
-                  <Button
-                    type="secondary"
-                    size="large"
-                    onClick={handleCancel}
-                    disabled={isLoading}
-                  >
-                    Отмена
-                  </Button>
-                  <Button
-                    type="primary"
-                    size="large"
-                    onClick={handleSubmit}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Сохранение...' : 'Сохранить'}
-                  </Button>
-                </div>
-              )}
-            </form>
-          </>
-        ) : (
-          <Outlet />
-        )}
-      </div>
+            {isEditing && (
+              <div className={styles.buttons}>
+                <Button
+                  type="secondary"
+                  size="large"
+                  htmlType="button"
+                  onClick={handleCancel}
+                  disabled={isLoading}
+                >
+                  Отмена
+                </Button>
+                <Button
+                  type="primary"
+                  size="large"
+                  htmlType="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Сохранение...' : 'Сохранить'}
+                </Button>
+              </div>
+            )}
+          </form>
+        </>
+      ) : (
+        <Outlet />
+      )}
     </div>
   );
 };

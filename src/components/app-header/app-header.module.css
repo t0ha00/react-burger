@@ -36,3 +36,9 @@
   align-items: center;
   margin: 0 auto;
 }
+
+.logo_link {
+  display: flex;
+  text-decoration: none;
+  cursor: pointer;
+}
