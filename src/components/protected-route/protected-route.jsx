@@ -19,7 +19,8 @@ export const ProtectedRoute = ({ children, onlyUnauth = false }) => {
 
   if (onlyUnauth) {
     if (isAuthenticated) {
-      return <Navigate to="/" replace />;
+      const { from } = location.state || { from: { pathname: '/' } };
+      return <Navigate to={from} replace />;
     }
     return children;
   }
