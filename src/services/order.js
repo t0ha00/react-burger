@@ -15,11 +15,12 @@ export const createOrder = createAsyncThunk(
       if (ingredients.length === 0) {
         return rejectWithValue('Нет ингредиентов для заказа');
       }
-
+      const accessToken = localStorage.getItem('accessToken');
       const response = await request(`${BASE_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: accessToken,
         },
         body: JSON.stringify({ ingredients }),
       });
@@ -68,3 +69,5 @@ const orderSlice = createSlice({
 
 export const { clearOrder } = orderSlice.actions;
 export default orderSlice.reducer;
+
+export const selectOrderLoading = (state) => state.order.isLoading;

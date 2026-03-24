@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px;
+  padding-top: 120px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 320px;
+}
+
+.menuItem {
+  margin-bottom: 24px;
+  padding-right: 24px;
+  font-weight: 700;
+  font-size: 36px;
+  font-family: 'Jet Brains Mono', sans-serif;
+  line-height: 1.1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menuItem.active {
+  color: white;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.info {
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}

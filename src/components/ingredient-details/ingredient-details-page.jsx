@@ -1,8 +1,9 @@
-import styles from './ingredient-details.module.css';
+import styles from './ingredient-details-page.module.css';
 
-export const IngredientDetails = ({ ingredient }) => {
+export const IngredientDetailsPage = ({ ingredient }) => {
   return (
-    <>
+    <div className={styles.container_main}>
+      <h1>Детали ингредиента</h1>
       <img className="pb-4" src={ingredient.image_large} alt={ingredient.name} />
       <p className={'text text_type_main-medium pb-8'}>{ingredient.name}</p>
       <div className={styles.modal_nutrition}>
@@ -35,6 +36,6 @@ export const IngredientDetails = ({ ingredient }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
