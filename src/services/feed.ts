@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+import { feedWsActions } from './middleware/feed-middleware';
+
 import type { FeedState, Order } from '@/types';
 
 const WS_URL = 'wss://new-stellarburgers.education-services.ru/orders/all';
@@ -30,98 +32,14 @@ const initialState: FeedState = {
   error: null,
 };
 
-export const connectWebSocket = createAsyncThunk(
-  'feed/connectWebSocket',
-  async (_, { dispatch }): Promise<void> => {
-    let ws: WebSocket | null = null;
-    let reconnectTimer: NodeJS.Timeout | null = null;
+export const connectWebSocket = (): { type: string; payload: { url: string } } => ({
+  type: feedWsActions.wsInit,
+  payload: { url: WS_URL },
+});
 
-    const connect = (): void => {
-      ws = new WebSocket(WS_URL);
-
-      ws.onopen = (): void => {
-        console.log('WebSocket connected');
-        if (reconnectTimer) {
-          clearTimeout(reconnectTimer);
-          reconnectTimer = null;
-        }
-      };
-
-      ws.onmessage = (event: MessageEvent): void => {
-        const data = JSON.parse(event.data);
-        if (data.success) {
-          dispatch(feedSlice.actions.setOrders(data));
-        }
-      };
-
-      ws.onerror = (error: Event): void => {
-        console.error('WebSocket error:', error);
-        dispatch(feedSlice.actions.setError('Ошибка подключения к WebSocket'));
-      };
-
-      ws.onclose = (): void => {
-        console.log('WebSocket disconnected, reconnecting in 5 seconds...');
-        reconnectTimer = setTimeout(() => {
-          connect();
-        }, 5000);
-      };
-    };
-
-    connect();
-  }
-);
-
-export const connectUserWebSocket = createAsyncThunk(
-  'feed/connectUserWebSocket',
-  async (_, { dispatch }): Promise<void> => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      dispatch(feedSlice.actions.setError('Нет токена доступа'));
-      throw new Error('No access token');
-    }
-
-    const token = accessToken.replace('Bearer ', '');
-    const wsUrl = `wss://new-stellarburgers.education-services.ru/orders?token=${token}`;
-    let ws: WebSocket | null = null;
-    let reconnectTimer: NodeJS.Timeout | null = null;
-
-    const connect = (): void => {
-      ws = new WebSocket(wsUrl);
-
-      ws.onopen = (): void => {
-        console.log('User WebSocket connected');
-        if (reconnectTimer) {
-          clearTimeout(reconnectTimer);
-          reconnectTimer = null;
-        }
-      };
-
-      ws.onmessage = (event: MessageEvent): void => {
-        const data = JSON.parse(event.data);
-        if (data.success) {
-          dispatch(feedSlice.actions.setOrders(data));
-        } else if (data.message === 'Invalid or missing token') {
-          dispatch(feedSlice.actions.setError('Токен устарел или недействителен'));
-          dispatch(feedSlice.actions.clearOrders());
-        }
-      };
-
-      ws.onerror = (error: Event): void => {
-        console.error('User WebSocket error:', error);
-        dispatch(feedSlice.actions.setError('Ошибка подключения к WebSocket'));
-      };
-
-      ws.onclose = (): void => {
-        console.log('User WebSocket disconnected, reconnecting in 5 seconds...');
-        reconnectTimer = setTimeout(() => {
-          connect();
-        }, 5000);
-      };
-    };
-
-    connect();
-  }
-);
+export const closeWebSocket = (): { type: string } => ({
+  type: feedWsActions.wsClose,
+});
 
 export const fetchOrders = createAsyncThunk(
   'feed/fetchOrders',
@@ -182,7 +100,49 @@ const feedSlice = createSlice({
       .addCase(fetchOrders.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
-      });
+      })
+      .addMatcher(
+        (action) => action.type === feedWsActions.onOpen,
+        (state) => {
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        (action) => action.type === feedWsActions.onClose,
+        (state) => {
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(
+        (action) => action.type === feedWsActions.onError,
+        (state, action) => {
+          state.error = (action as unknown as { payload: string }).payload;
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(
+        (action) => action.type === feedWsActions.onMessage,
+        (state, action) => {
+          const payload = (
+            action as unknown as {
+              payload: {
+                success: boolean;
+                orders: unknown[];
+                total: number;
+                totalToday: number;
+              };
+            }
+          ).payload;
+          if (payload.success) {
+            const validOrders = payload.orders.filter(isValidOrder);
+            state.orders = validOrders;
+            state.total = payload.total;
+            state.totalToday = payload.totalToday;
+            state.isLoading = false;
+            state.error = null;
+          }
+        }
+      );
   },
 });
 

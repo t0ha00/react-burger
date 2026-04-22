@@ -1,15 +1,15 @@
 import { CurrencyIcon } from '@krgaa/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
+
+import { useAppSelector } from '@services/hooks';
 
 import type { FC } from 'react';
 
 import type { Order, Ingredient } from '@/types';
-import type { RootState } from '@services/store';
 
 import styles from './feed-order-details.module.css';
 
 export const FeedOrderDetails: FC<{ order: Order }> = ({ order }) => {
-  const ingredients = useSelector((state: RootState) => state.ingredients.ingredients);
+  const ingredients = useAppSelector((state) => state.ingredients.ingredients);
 
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);

@@ -1,8 +1,8 @@
 import { useEffect, type FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { checkAuth, selectIsAuthenticated, selectAuthLoading } from '@services/auth';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -13,10 +13,10 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   children,
   onlyUnauth = false,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  const isLoading = useSelector(selectAuthLoading);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const isLoading = useAppSelector(selectAuthLoading);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');

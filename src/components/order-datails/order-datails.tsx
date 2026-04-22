@@ -1,12 +1,11 @@
 import { CheckMarkIcon } from '@krgaa/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
+
+import { useAppSelector } from '@services/hooks';
 
 import type { FC } from 'react';
 
-import type { RootState } from '@/types';
-
 export const OrderDetails: FC = () => {
-  const { orderNumber } = useSelector((state: RootState) => state.order);
+  const { orderNumber } = useAppSelector((state) => state.order);
 
   return (
     <>

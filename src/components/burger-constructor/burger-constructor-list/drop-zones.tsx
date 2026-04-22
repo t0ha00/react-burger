@@ -1,7 +1,7 @@
 import { useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 
 import { addIngredientWithId } from '@/services/burger-constructor';
+import { useAppDispatch } from '@services/hooks';
 
 import type { FC } from 'react';
 
@@ -16,7 +16,7 @@ export const IngredientsDropZone: FC<IngredientsDropZoneProps> = ({
   type,
   children,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [, dropRef] = useDrop({
     accept: 'ingredient',
     drop: (item: Ingredient) => {
@@ -28,7 +28,10 @@ export const IngredientsDropZone: FC<IngredientsDropZoneProps> = ({
   });
 
   return (
-    <div ref={dropRef} className={`drop-zone ${type || ''}`}>
+    <div
+      ref={dropRef as unknown as React.Ref<HTMLDivElement>}
+      className={`drop-zone ${type || ''}`}
+    >
       {children}
     </div>
   );

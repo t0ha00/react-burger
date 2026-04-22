@@ -38,6 +38,9 @@ export const AppRoutes: FC = () => {
             <Route index element={<ProfilePage />} />
             <Route path="orders" element={<ProfileOrders />} />
           </Route>
+          <Route path="/ingredients/:id" element={<IngredientDetailView />} />
+          <Route path="/feed" element={<FeedPage />} />
+          <Route path="/feed/:id" element={<FeedOrderDetailsPage />} />
           <Route
             path="/profile/orders/:id"
             element={
@@ -46,9 +49,6 @@ export const AppRoutes: FC = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/ingredients/:id" element={<IngredientDetailView />} />
-          <Route path="/feed" element={<FeedPage />} />
-          <Route path="/feed/:id" element={<FeedOrderDetailsPage />} />
           <Route
             path="/register"
             element={
@@ -89,7 +89,14 @@ export const AppRoutes: FC = () => {
         <Routes>
           <Route path="/ingredients/:id" element={<IngredientDetailsModule />} />
           <Route path="/feed/:id" element={<FeedOrderDetailsPage />} />
-          <Route path="/profile/orders/:id" element={<ProfileOrderDetails />} />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <ProtectedRoute>
+                <ProfileOrderDetails />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       )}
     </>

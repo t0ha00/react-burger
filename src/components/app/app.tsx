@@ -1,21 +1,17 @@
 import { useEffect, type FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
 import { AppHeader } from '@components/app-header/app-header';
 import { checkAuth, selectIsAuthenticated, selectAuthLoading } from '@services/auth';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 import { fetchIngredients } from '@services/ingredients';
-
-import type { AppDispatch, RootState } from '@services/store.ts';
 
 import styles from './app.module.css';
 
 export const App: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const isAuthenticated = useSelector((state: RootState) =>
-    selectIsAuthenticated(state)
-  );
-  const isLoading = useSelector((state: RootState) => selectAuthLoading(state));
+  const dispatch = useAppDispatch();
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const isLoading = useAppSelector(selectAuthLoading);
 
   useEffect(() => {
     dispatch(fetchIngredients());

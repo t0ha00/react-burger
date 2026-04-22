@@ -2,31 +2,29 @@ import { Preloader } from '@krgaa/react-developer-burger-ui-components';
 import { useEffect, type FC } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useParams, useNavigate } from 'react-router-dom';
 
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
 import Modal from '@components/modal/modal';
-import { selectIngredientById } from '@services/ingredients';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
+import { selectIngredientById, selectIngredientsLoading } from '@services/ingredients';
 import {
   setSelectedIngredient,
   clearSelectedIngredient,
 } from '@services/selected-ingredient';
 
-import type { RootState } from '@/types';
-
 import styles from './home.module.css';
 
 export const Home: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isLoading } = useSelector((state: RootState) => state.ingredients);
+  const isLoading = useAppSelector(selectIngredientsLoading);
   const location = useLocation();
   const { id } = useParams();
 
-  const selectedIngredient = useSelector((state: RootState) =>
+  const selectedIngredient = useAppSelector((state) =>
     selectIngredientById(state, id || '')
   );
   const isIngredientModalOpen =

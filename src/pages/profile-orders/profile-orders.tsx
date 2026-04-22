@@ -1,32 +1,44 @@
 import { useEffect, type FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { FeedOrderCard } from '@components/feed/feed-order-card/feed-order-card';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 import {
   connectUserWebSocket,
-  selectFeedOrders,
-  selectFeedLoading,
-  selectFeedError,
-} from '@services/feed';
+  closeUserWebSocket,
+  selectProfileOrders,
+  selectProfileLoading,
+  selectProfileError,
+} from '@services/profile-feed';
 
-import type { AppDispatch } from '@services/store';
+import type { Order } from '@/types';
 
 import styles from './profile-orders.module.css';
 
 export const ProfileOrders: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const orders = useSelector(selectFeedOrders);
-  const isLoading = useSelector(selectFeedLoading);
-  const error = useSelector(selectFeedError);
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector(selectProfileOrders);
+  const isLoading = useAppSelector(selectProfileLoading);
+  const error = useAppSelector(selectProfileError);
 
   useEffect(() => {
     dispatch(connectUserWebSocket());
+    return (): void => {
+      dispatch(closeUserWebSocket());
+    };
   }, [dispatch]);
 
   if (isLoading) {
     return (
       <div className={styles.container}>
-        <p className="text text_type_main-large">Загрузка заказов...</p>
+        <div className={styles.orders_list}>
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            <div
+              key={i}
+              className="mb-6"
+              style={{ height: '144px', background: '#f3f3f3', borderRadius: '16px' }}
+            />
+          ))}
+        </div>
       </div>
     );
   }
@@ -41,7 +53,7 @@ export const ProfileOrders: FC = () => {
 
   const sortedOrders = [...orders].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+  ) as Order[];
 
   return (
     <div className={styles.container}>

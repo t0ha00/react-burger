@@ -4,7 +4,6 @@ import {
   EmailInput,
 } from '@krgaa/react-developer-burger-ui-components';
 import { useState, type FC, type ChangeEvent, type FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import {
@@ -13,6 +12,7 @@ import {
   selectAuthLoading,
   selectAuthError,
 } from '@services/auth';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 
 import type { LoginData } from '@/types';
 
@@ -29,11 +29,11 @@ export const LoginPage: FC = () => {
     password: '',
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const isLoading = useSelector(selectAuthLoading);
-  const error = useSelector(selectAuthError);
+  const isLoading = useAppSelector(selectAuthLoading);
+  const error = useAppSelector(selectAuthError);
 
   const from = location.state?.from?.pathname || '/';
 

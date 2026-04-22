@@ -1,25 +1,23 @@
 import { useEffect, type FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { IngredientDetails } from '@components/ingredient-details/ingredient-details';
 import Modal from '@components/modal/modal';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 import { selectIngredientById } from '@services/ingredients';
 import {
   setSelectedIngredient,
   clearSelectedIngredient,
 } from '@services/selected-ingredient';
 
-import type { RootState } from '@/types';
-
 import styles from './ingredient-details-module.module.css';
 
 export const IngredientDetailsModule: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const selectedIngredient = useSelector((state: RootState) =>
+  const selectedIngredient = useAppSelector((state) =>
     selectIngredientById(state, id || '')
   );
 

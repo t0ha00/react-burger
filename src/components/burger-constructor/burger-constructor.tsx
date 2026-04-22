@@ -1,33 +1,29 @@
 import { CurrencyIcon, Button } from '@krgaa/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BurgerConstructorList } from 'src/components/burger-constructor/burger-constructor-list/burger-constructor-list';
 
 import { clearConstructor, selectTotalPrice } from '@/services/burger-constructor';
 import { createOrder, clearOrder, selectOrderLoading } from '@/services/order';
 import { selectIsAuthenticated } from '@services/auth';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 
 import Modal from '../modal/modal';
 import { OrderDetails } from '../order-datails/order-datails';
 
 import type { FC } from 'react';
 
-import type { AppDispatch, RootState } from '@services/store';
-
 import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { bun, ingredients } = useSelector(
-    (state: RootState) => state.burgerConstructor
-  );
-  const { orderNumber } = useSelector((state: RootState) => state.order);
-  const totalPrice = useSelector(selectTotalPrice);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  const isOrderLoading = useSelector(selectOrderLoading);
+  const bun = useAppSelector((state) => state.burgerConstructor.bun);
+  const ingredients = useAppSelector((state) => state.burgerConstructor.ingredients);
+  const totalPrice = useAppSelector(selectTotalPrice);
+  const orderLoading = useAppSelector(selectOrderLoading);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
-  const modalOpen = orderNumber !== null;
+  const modalOpen = useAppSelector((state) => state.order.orderNumber) !== null;
   const hasBun = bun !== null;
 
   const handleOpenModal = async (): Promise<void> => {
@@ -65,9 +61,9 @@ export const BurgerConstructor: FC = () => {
           type="primary"
           size="large"
           onClick={handleOpenModal}
-          disabled={!hasBun || isOrderLoading}
+          disabled={!hasBun || orderLoading}
         >
-          {isOrderLoading ? 'Оформление...' : 'Оформить заказ'}
+          {orderLoading ? 'Оформление...' : 'Оформить заказ'}
         </Button>
       </div>
 

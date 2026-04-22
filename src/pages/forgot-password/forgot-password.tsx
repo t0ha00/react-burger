@@ -1,6 +1,5 @@
 import { Button, EmailInput } from '@krgaa/react-developer-burger-ui-components';
 import { useState, type FC, type ChangeEvent, type FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import {
@@ -9,16 +8,17 @@ import {
   selectAuthLoading,
   selectAuthError,
 } from '@services/auth';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 
 import styles from './forgot-password.module.css';
 
 export const ForgotPasswordPage: FC = () => {
   const [email, setEmail] = useState('');
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoading = useSelector(selectAuthLoading);
-  const error = useSelector(selectAuthError);
+  const isLoading = useAppSelector(selectAuthLoading);
+  const error = useAppSelector(selectAuthError);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);

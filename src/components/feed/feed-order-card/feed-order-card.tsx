@@ -1,11 +1,11 @@
 import { CurrencyIcon } from '@krgaa/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+import { useAppSelector } from '@services/hooks';
 
 import type { FC } from 'react';
 
 import type { Order, Ingredient } from '@/types';
-import type { RootState } from '@services/store';
 
 import styles from './feed-order-card.module.css';
 
@@ -17,7 +17,7 @@ type FeedOrderCardProps = {
 export const FeedOrderCard: FC<FeedOrderCardProps> = ({ order, basePath = '/feed' }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const ingredients = useSelector((state: RootState) => state.ingredients.ingredients);
+  const ingredients = useAppSelector((state) => state.ingredients.ingredients);
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
     return date.toLocaleString('ru-RU', {

@@ -1,35 +1,97 @@
 import { useEffect, type FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { FeedOrderCard } from '@components/feed/feed-order-card/feed-order-card';
 import {
   connectWebSocket,
+  closeWebSocket,
   selectFeedOrders,
   selectFeedTotal,
   selectFeedTotalToday,
   selectFeedLoading,
 } from '@services/feed';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 
 import type { Order } from '@/types';
-import type { AppDispatch } from '@services/store';
 
 import styles from './feed.module.css';
 
 export const FeedPage: FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const orders = useSelector(selectFeedOrders);
-  const total = useSelector(selectFeedTotal);
-  const totalToday = useSelector(selectFeedTotalToday);
-  const isLoading = useSelector(selectFeedLoading);
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector(selectFeedOrders);
+  const total = useAppSelector(selectFeedTotal);
+  const totalToday = useAppSelector(selectFeedTotalToday);
+  const isLoading = useAppSelector(selectFeedLoading);
 
   useEffect(() => {
     dispatch(connectWebSocket());
+    return (): void => {
+      dispatch(closeWebSocket());
+    };
   }, [dispatch]);
 
   if (isLoading) {
     return (
       <div className={styles.container}>
-        <p className="text text_type_main-large">Загрузка ленты заказов...</p>
+        <div className={styles.feed_list}>
+          <div className={styles.feed_header}>
+            <h1 className="text text_type_main-large">Лента заказов</h1>
+          </div>
+          <div className={`${styles.orders_list} custom-scroll`}>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <div
+                key={i}
+                className="mb-6"
+                style={{ height: '144px', background: '#f3f3f3', borderRadius: '16px' }}
+              />
+            ))}
+          </div>
+        </div>
+        <div className={styles.orders_status}>
+          <div className={styles.status_list}>
+            <div className={styles.status_column}>
+              <h2 className="text text_type_main-medium">Готовы:</h2>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  className="mb-2"
+                  style={{ height: '24px', background: '#f3f3f3', borderRadius: '4px' }}
+                />
+              ))}
+            </div>
+            <div className={styles.status_column}>
+              <h2 className="text text_type_main-medium">В работе:</h2>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  className="mb-2"
+                  style={{ height: '24px', background: '#f3f3f3', borderRadius: '4px' }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="mt-10">
+            <h2 className="text text_type_main-medium">Готово за все время:</h2>
+            <div
+              style={{
+                height: '48px',
+                background: '#f3f3f3',
+                borderRadius: '8px',
+                width: '100px',
+              }}
+            />
+          </div>
+          <div className="mt-10">
+            <h2 className="text text_type_main-medium">Готово за сегодня:</h2>
+            <div
+              style={{
+                height: '48px',
+                background: '#f3f3f3',
+                borderRadius: '8px',
+                width: '100px',
+              }}
+            />
+          </div>
+        </div>
       </div>
     );
   }

@@ -4,7 +4,6 @@ import {
   PasswordInput,
 } from '@krgaa/react-developer-burger-ui-components';
 import { useState, useEffect, type FC, type ChangeEvent, type FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 import {
@@ -15,6 +14,7 @@ import {
   selectAuthLoading,
   selectAuthError,
 } from '@services/auth';
+import { useAppDispatch, useAppSelector } from '@services/hooks';
 
 import type { UpdateUserData } from '@/types';
 
@@ -27,13 +27,13 @@ type FormData = {
 };
 
 export const ProfilePage: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const isProfilePage = location.pathname === '/profile';
 
-  const user = useSelector(selectUser);
-  const isLoading = useSelector(selectAuthLoading);
-  const error = useSelector(selectAuthError);
+  const user = useAppSelector(selectUser);
+  const isLoading = useAppSelector(selectAuthLoading);
+  const error = useAppSelector(selectAuthError);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',

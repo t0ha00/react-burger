@@ -118,6 +118,7 @@ export type RootState = {
   order: OrderState;
   auth: AuthState;
   feed: FeedState;
+  profileFeed: FeedState;
 };
 
 export type Order = {
