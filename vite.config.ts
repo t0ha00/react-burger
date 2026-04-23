@@ -19,7 +19,7 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
-  base: '/',
+  base: '/react-burger/',
   server: {
     open: true,
   },
