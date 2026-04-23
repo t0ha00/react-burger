@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import readableClassnames from 'vite-plugin-readable-classnames';
 import sassDts from 'vite-plugin-sass-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,12 +19,7 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
-  base: '',
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./vitest-setup.js'],
-  },
+  base: '/',
   server: {
     open: true,
   },

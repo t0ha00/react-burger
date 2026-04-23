@@ -38,6 +38,7 @@ export const BurgerIngredientsCard: FC<BurgerIngredientsCardProps> = ({
       ref={dragRef}
       className={`${styles.card} mb-10 pl-4 ${isDrag ? styles.card_dragging : ''}`}
       onClick={handleOpenModal}
+      data-test-id="ingredient-card"
     >
       {ingredientCount > 0 && <Counter count={ingredientCount} size="default" />}
       <img className="pl-4" src={ingredient.image} alt={ingredient.name} />

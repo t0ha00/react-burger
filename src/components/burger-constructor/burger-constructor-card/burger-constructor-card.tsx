@@ -86,6 +86,7 @@ export const BurgerConstructorCard: FC<BurgerConstructorCardProps> = ({
       key={ingredient.uniqueId}
       className={`${styles.card} ${top || bottom ? 'ml-8' : ''} ${isDrag ? styles.card_dragging : ''} ${isHover ? styles.card_hover : ''}`}
       ref={combinedRef}
+      data-testid="constructor-drop-zone"
     >
       {!(top || bottom) && <DragIcon type="primary" className={`${styles.drag_icon}`} />}
       <ConstructorElement
