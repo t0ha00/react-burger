@@ -117,4 +117,24 @@ export type RootState = {
   burgerConstructor: BurgerConstructorState;
   order: OrderState;
   auth: AuthState;
+  feed: FeedState;
+  profileFeed: FeedState;
+};
+
+export type Order = {
+  _id: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  status: 'done' | 'pending' | 'created';
+  name: string;
+  ingredients: string[];
+};
+
+export type FeedState = {
+  orders: Order[];
+  total: number;
+  totalToday: number;
+  isLoading: boolean;
+  error: string | null;
 };

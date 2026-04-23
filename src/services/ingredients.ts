@@ -50,4 +50,8 @@ export const selectIngredientById = (
 ): Ingredient | undefined =>
   state.ingredients.ingredients.find((ingredient) => ingredient._id === id);
 
+export const selectIngredientsLoading = (state: {
+  ingredients: IngredientsState;
+}): boolean => state.ingredients.isLoading;
+
 export default ingredientsSlice.reducer;

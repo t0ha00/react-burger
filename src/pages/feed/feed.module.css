@@ -1,5 +1,63 @@
 .container {
-  display: block;
-  margin: auto;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  width: 1240px;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.feed_list {
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  color: var(--text-primary-color);
+  font-family: 'Jet Brains Mono', serif;
+}
+
+.feed_header {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+.orders_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+  overflow-y: auto;
+}
+
+.orders_status {
+  padding: 100px 20px;
+}
+
+.status_list {
+  display: flex;
+  justify-content: space-between;
+  gap: 300px;
+  text-align: left;
+}
+
+.status_column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 150px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.status_items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status_number {
+  font-size: 16px;
+  line-height: 24px;
 }

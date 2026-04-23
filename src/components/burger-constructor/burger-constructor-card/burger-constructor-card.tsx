@@ -4,9 +4,9 @@ import {
 } from '@krgaa/react-developer-burger-ui-components';
 import { useRef, type FC } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 
 import { removeIngredient, moveIngredient } from '@/services/burger-constructor';
+import { useAppDispatch } from '@services/hooks';
 
 import type { BurgerConstructorCardProps, DragItem } from '@/types';
 
@@ -18,7 +18,7 @@ export const BurgerConstructorCard: FC<BurgerConstructorCardProps> = ({
   bottom,
   index,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLLIElement>(null);
 
   const handleClose = (): void => {

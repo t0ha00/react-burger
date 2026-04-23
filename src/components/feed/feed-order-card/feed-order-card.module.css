@@ -1,0 +1,93 @@
+.order_card {
+  margin-bottom: 16px;
+  padding: 24px;
+  background: #1c1c21;
+  border-radius: 40px;
+}
+
+.order_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.order_number {
+  font-weight: 600;
+}
+
+.order_time {
+  font-size: 12px;
+}
+
+.order_content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order_name {
+  margin: 0;
+  line-height: 24px;
+}
+
+.order_ingredients {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ingredient_image {
+  width: 64px;
+  height: 64px;
+  border: 2px solid #801ab2;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ingredients_more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  color: #8585ad;
+  font-weight: 600;
+  font-size: 20px;
+  background: #131316;
+  border: 2px dashed #801ab2;
+  border-radius: 50%;
+}
+
+.order_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order_price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order_status {
+  text-align: right;
+}
+
+.status_done {
+  color: #0cc;
+}
+
+.status_pending {
+  color: #f2f2f3;
+}
+
+.status_created {
+  color: #e2b548;
+}
+
+.status_default {
+  color: #fff;
+}

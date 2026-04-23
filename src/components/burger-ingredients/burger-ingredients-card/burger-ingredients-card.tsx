@@ -1,9 +1,9 @@
 import { Counter, CurrencyIcon } from '@krgaa/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
-import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { selectIngredientCounts } from '@/services/burger-constructor';
+import { useAppSelector } from '@services/hooks';
 
 import type { FC } from 'react';
 
@@ -15,7 +15,7 @@ export const BurgerIngredientsCard: FC<BurgerIngredientsCardProps> = ({
   ingredient,
 }) => {
   const navigate = useNavigate();
-  const ingredientCounts = useSelector(selectIngredientCounts);
+  const counts = useAppSelector(selectIngredientCounts);
   const location = useLocation();
 
   const [{ isDrag }, dragRef] = useDrag({
@@ -30,7 +30,7 @@ export const BurgerIngredientsCard: FC<BurgerIngredientsCardProps> = ({
     navigate(`/ingredients/${ingredient._id}`, { state: { background: location } });
   }
 
-  const ingredientCount = ingredientCounts[ingredient._id] || 0;
+  const ingredientCount = counts[ingredient._id] || 0;
 
   return (
     <li

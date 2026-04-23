@@ -4,12 +4,15 @@ import { App } from '@components/app/app';
 import { IngredientDetailView } from '@components/ingredient-details/ingredient-detail-view';
 import { ProtectedRoute } from '@components/protected-route';
 import { FeedPage } from '@pages/feed';
+import { FeedOrderDetailsPage } from '@pages/feed-order-details/feed-order-details';
 import { ForgotPasswordPage } from '@pages/forgot-password';
 import { Home } from '@pages/home';
 import { IngredientDetailsModule } from '@pages/ingredient-details';
 import { LoginPage } from '@pages/login';
 import { NotFoundPage } from '@pages/not-found';
-import { ProfilePage, ProfileOrderPage } from '@pages/profile';
+import { ProfilePage } from '@pages/profile';
+import { ProfileOrderDetails } from '@pages/profile-order-details';
+import { ProfileOrders } from '@pages/profile-orders';
 import { RegisterPage } from '@pages/register';
 import { ResetPasswordPage } from '@pages/reset-password';
 
@@ -33,10 +36,19 @@ export const AppRoutes: FC = () => {
             }
           >
             <Route index element={<ProfilePage />} />
-            <Route path="orders" element={<ProfileOrderPage />} />
+            <Route path="orders" element={<ProfileOrders />} />
           </Route>
           <Route path="/ingredients/:id" element={<IngredientDetailView />} />
           <Route path="/feed" element={<FeedPage />} />
+          <Route path="/feed/:id" element={<FeedOrderDetailsPage />} />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <ProtectedRoute>
+                <ProfileOrderDetails />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/register"
             element={
@@ -76,6 +88,15 @@ export const AppRoutes: FC = () => {
       {background && (
         <Routes>
           <Route path="/ingredients/:id" element={<IngredientDetailsModule />} />
+          <Route path="/feed/:id" element={<FeedOrderDetailsPage />} />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <ProtectedRoute>
+                <ProfileOrderDetails />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       )}
     </>

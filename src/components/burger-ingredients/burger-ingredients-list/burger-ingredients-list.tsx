@@ -1,10 +1,8 @@
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@services/hooks';
 
 import { BurgerIngredientsCard } from '../burger-ingredients-card/burger-ingredients-card';
 
 import type { FC, RefObject } from 'react';
-
-import type { RootState } from '@/types';
 
 import styles from './burger-ingredients-list.module.css';
 
@@ -21,7 +19,7 @@ export const BurgerIngredientsList: FC<BurgerIngredientsListProps> = ({
   saucesRef,
   containerRef,
 }) => {
-  const { ingredients } = useSelector((state: RootState) => state.ingredients);
+  const ingredients = useAppSelector((state) => state.ingredients.ingredients);
   const buns = ingredients.filter((item) => item.type === 'bun');
   const mains = ingredients.filter((item) => item.type === 'main');
   const sauces = ingredients.filter((item) => item.type === 'sauce');
