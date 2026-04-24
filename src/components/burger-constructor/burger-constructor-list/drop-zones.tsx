@@ -31,6 +31,7 @@ export const IngredientsDropZone: FC<IngredientsDropZoneProps> = ({
     <div
       ref={dropRef as unknown as React.Ref<HTMLDivElement>}
       className={`drop-zone ${type || ''}`}
+      data-testid="constructor-drop-zone"
     >
       {children}
     </div>
